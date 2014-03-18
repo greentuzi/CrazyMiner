@@ -30,6 +30,7 @@ package
 		
 		override public function update():void 
 		{
+			/*
 			if (!isCatched) {
 				var r:Rope = collide("Rope", x, y) as Rope;
 				if (r) {
@@ -41,12 +42,13 @@ package
 				}
 			}
 			else {
-				trace("catch!!");
+				//trace("catch!!");
 				moveTo(x + speed_x * FP.elapsed, y + speed_y * FP.elapsed);
 				if (y <= Config.PLAYER_AREA_HEIGHT) {
 					FP.world.remove(this);
 				}
 			}
+			*/
 		}
 	}
 

@@ -65,8 +65,10 @@ package
 		{
 			super.update();
 			//if click on the mine area, then fire.
-			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT)
+			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT){
 				players[myPos].rope.setStretch(true);
+				Util.getInstance().send("241##abc##0.523");
+			}
 		}
 	}
 
