@@ -22,6 +22,16 @@ package
 		private var stones:Array;
 		private var stoneCount:int = 10;
 		
+		private static var instance:GamePlay = null;
+		
+		public static function getInstance():GamePlay
+		{
+			if (instance == null)
+				return instance = new GamePlay();
+			return instance;
+		}
+		
+		
 		public function GamePlay(playerNumber:Number = 2, playerPosition:Number = 0, stones:Array = null) 
 		{
 			playerNum = playerNumber;
@@ -73,16 +83,14 @@ package
 		
 		public function receive(string:String):void
 		{
+			trace(string);
 			var array:Array = string.split("\n");
-			for (var i:int = 0; i < playerNum; i++) {
-				if (players[i].playerName == array[0])
-				{
-					players[i].endX = Number(array[1]);
-					players[i].endY = Number(array[2]);
-					players[i].endTime = Number(array[3]);
-					players[i].backTime = Number(array[4]);
-				}
-			}
+			var i = int(array[0]);
+			players[i].endX = Number(array[1]);
+			players[i].endY = Number(array[2]);
+			players[i].endTime = Number(array[3]);
+			players[i].backTime = Number(array[4]);
+			trace(players[i].backTime);
 		}
 	}
 

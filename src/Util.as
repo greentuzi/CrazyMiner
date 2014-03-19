@@ -14,7 +14,7 @@ package
 	{
 		private var xmlSocket:XMLSocket;	
 		private static var instance:Util = null;
-		public static function getInstance()
+		public static function getInstance():Util
 		{
 			if (instance == null)
 				return instance = new Util();
@@ -36,7 +36,7 @@ package
 			
 		}
 		
-		public function send(s:String)
+		public function send(s:String):void
 		{
 			xmlSocket.send(s);
 		}
@@ -46,12 +46,14 @@ package
 		}
 		
 		private function onData(event:DataEvent): void {             
-			//trace(event.data);
-		    var array:Array = event.data.split("##");
+			if (event.data == "") return;
+			var string:String = event.data;
+			var array:Array = string.split("##");
 			switch(array[0])
 			{
 				case "242":
-					FP.world.receive(array[2]);
+					trace("Hello");
+					GamePlay.getInstance().receive(array[2]);
 			}
 		}
 	}
