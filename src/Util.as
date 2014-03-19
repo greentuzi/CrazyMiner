@@ -5,6 +5,7 @@ package
 	import flash.events.DataEvent;
 	import flash.net.XMLSocket;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.FP;
 	/**
 	 * ...
 	 * @author Greentuzi
@@ -26,7 +27,7 @@ package
 			
 			xmlSocket.addEventListener(DataEvent.DATA, onData);
 			try{
-				xmlSocket.connect("172.18.158.116", 8765);
+				xmlSocket.connect("172.18.159.243", 8765);
 			}
 			catch (e:Error)
 			{
@@ -45,8 +46,13 @@ package
 		}
 		
 		private function onData(event:DataEvent): void {             
-			graphic = new Text(event.data,300,300);
-			trace(event.data);
+			//trace(event.data);
+		    var array:Array = event.data.split("##");
+			switch(array[0])
+			{
+				case "242":
+					FP.world.receive(array[2]);
+			}
 		}
 	}
 

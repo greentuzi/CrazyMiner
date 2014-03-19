@@ -104,6 +104,10 @@ package
 			image.angle = angle;
 			graphic = image;
 		}
+		
+		public function getAngle():Number {
+			return angle;
+		}
 	}
 
 }

@@ -67,7 +67,21 @@ package
 			//if click on the mine area, then fire.
 			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT){
 				players[myPos].rope.setStretch(true);
-				Util.getInstance().send("241##abc##0.523");
+				Util.getInstance().send("241##launchRequire##" + players[myPos].rope.getAngle());
+			}
+		}
+		
+		public function receive(string:String):void
+		{
+			var array:Array = string.split("\n");
+			for (var i:int = 0; i < playerNum; i++) {
+				if (players[i].playerName == array[0])
+				{
+					players[i].endX = Number(array[1]);
+					players[i].endY = Number(array[2]);
+					players[i].endTime = Number(array[3]);
+					players[i].backTime = Number(array[4]);
+				}
 			}
 		}
 	}

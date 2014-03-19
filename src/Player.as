@@ -10,6 +10,11 @@ package
 		public var header:ImageDisplay;
 		public var platform:ImageDisplay;
 		public var rope:Rope;
+		public var playerName:String;
+		public var endX:Number;
+		public var endY:Number;
+		public var endTime:Number;
+		public var backTime:Number;
 		
 		public function Player(position_x:Number = 0, position_y:Number = 0) 
 		{
