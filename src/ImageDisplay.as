@@ -12,7 +12,7 @@ package
 		{
 			var img:Image;
 			if (!image)
-				img = Image.createCircle(20, 0xff0000);
+				img = Image.createCircle(19, 0xff0000);
 			else 
 				img = new Image(image);
 			super(x, y, img);

@@ -52,7 +52,6 @@ package
 			switch(array[0])
 			{
 				case "242":
-					trace("Hello");
 					GamePlay.getInstance().receive(array[2]);
 			}
 		}

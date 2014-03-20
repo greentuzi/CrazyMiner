@@ -17,20 +17,25 @@ package
 	 */
 	public class Rope extends Entity
 	{
-		private var stretch:Boolean;
-		private var fireSpeed:Number;
-		private var waveSpeed:Number;
-		private var length:Number;
-		private var angle:Number;
-		private var image:Image;
+		private var launched:Boolean;
 		private var isCatch:Boolean;
+		private var speed:Number;
+		private var launchSpeed:Number;
+		private var backSpeed:Number;
+		private var waveSpeed:Number;
+		private var angle:Number;
+		private var endX:Number;
+		private var endY:Number;
+		private var length:Number;
+		private var finalLength:Number;
+		private var image:Image;
 		
-		public function Rope(x:Number = 0, y:Number = 0)
+		public function Rope(x:Number = 0.0, y:Number = 0.0)
 		{
 			this.x = x;
 			this.y = y;
-			stretch = false;
-			fireSpeed = Config.FIRE_SPEED;
+			launched = false;
+			speed = 0;
 			waveSpeed = Config.WAVE_SPEED;
 			length = Config.ROPE_LENGTH;
 			image = new Image(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
@@ -38,40 +43,27 @@ package
 			graphic = image;
 			setAngle(Config.WAVE_ANGLE_MIN);
 			isCatch = false;
-			
-			setHitbox(Config.ROPE_WIDTH, length);
-			type = "Rope";
 		}
 		
 		override public function update():void 
 		{
-			//rope stretch
-			if(stretch) {
-				
-				length = length + fireSpeed * FP.elapsed;
-				if ( (angle<0&&length * Math.sin(-angle * 3.14 / 180) >= x) 
-					|| (angle>=0&&length * Math.sin(Math.abs(angle) * 3.14 / 180) >= Config.RESOLUTION_WIDTH - x)
-					|| length * Math.cos(angle * 3.14 / 180) >= Config.MINE_AREA_HEIGHT) {
-					fireSpeed = -fireSpeed;
+			//rope launch
+			if(launched) {
+				length = length + speed * FP.elapsed;
+				if (length>=finalLength) {
+					speed = -backSpeed;
 				}
-				else if (fireSpeed < 0 && length <= Config.ROPE_LENGTH) {
+				//already back
+				else if (speed < 0 && length <= Config.ROPE_LENGTH) {
 					length = Config.ROPE_LENGTH;
-					fireSpeed = -fireSpeed;
-					stretch = false;
+					speed = launchSpeed;
+					launched = false;
 					isCatch = false;
 				}
-				if(!isCatch){
-					if (collide("Stone",x,y)){
-						fireSpeed = -fireSpeed;
-						isCatch = true;
-					}
-				}
 				setLength(length);
-				//trace( width.toString() + ";" + height.toString());
 			}
 			//rope wave
 			else {
-				
 				angle = angle + waveSpeed * FP.elapsed;
 				if (angle <= Config.WAVE_ANGLE_MIN) {
 					angle = Config.WAVE_ANGLE_MIN;
@@ -83,10 +75,30 @@ package
 				}
 				setAngle(angle);
 			}
+			
+			if (!launched&&Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
+				var convertedAngle:Number = 3.14 * (90 - angle) / 180;//should be radians
+				trace("my angle:" + (90 - angle));
+				Util.getInstance().send("241##launchRequire##" + convertedAngle + "##");
+			}
 		}
 		
-		public function setStretch(state:Boolean = true):void {
-			stretch = state;
+		public function launch(launchInfo:Array):void {
+			launched = true;
+			endX = launchInfo[1];
+			endY = launchInfo[2];
+			var forwardTime:Number = launchInfo[3];
+			var backwardTime:Number = launchInfo[4];
+			
+			finalLength = Math.sqrt((x - endX) * (x - endX) + (y - endY) * (y - endY));
+			angle = 90 - ((Math.acos((endX - x) / finalLength))* 180 / 3.14);
+			trace(Math.asin( -1 / 2)*180/3.14);
+			speed = launchSpeed = (finalLength-Config.ROPE_LENGTH) / forwardTime;
+			backSpeed = (finalLength - Config.ROPE_LENGTH) / backwardTime;
+			
+			trace("launchInfo:" + launchInfo);
+			trace("finalLength:" + finalLength);
+			trace("angle:" + angle);
 		}
 		
 		public function setLength(distance:Number):void {
@@ -95,8 +107,6 @@ package
 			image.originX = Config.ROPE_WIDTH / 2;
 			image.angle = angle;
 			graphic = image;
-			if(!isCatch)
-				setHitbox(Config.ROPE_WIDTH, length);
 		}
 		
 		public function setAngle(angles:Number):void {

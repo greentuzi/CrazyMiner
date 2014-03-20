@@ -12,20 +12,9 @@ package
 		public function Main()
 		{
 			super(Config.RESOLUTION_WIDTH, Config.RESOLUTION_HEIGHT, 60, false);
-			gamePlay = new GamePlay();
+			gamePlay = GamePlay.getInstance();
 			FP.world = gamePlay;
 		}
-
-		override public function init():void
-		{
-			trace("FlashPunk has started successfully!");
-		}
-		
-		override public function update():void 
-		{
-			super.update();
-		}
-		
 		
 	}
 }

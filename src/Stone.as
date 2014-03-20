@@ -15,17 +15,18 @@ package
 		private var speed_y:Number;
 		private var isCatched:Boolean;
 		
-		public function Stone(x:int=0,y:int=0,kind:int=-1) 
+		public function Stone(x:int=0,y:int=0,kind:int=0) 
 		{
 			this.x = x;
 			this.y = y;
 			speed_x = speed_y = 0;
 			isCatched = false;
 			this.kind = kind;
-			if(kind==-1)
-				graphic = Image.createCircle(20, 0xff0000);
-			
-			setHitbox(40, 40);
+			switch(kind){
+				default:
+					graphic = Image.createCircle(25, 0xff0000);
+					break;
+			}
 		}
 		
 		override public function update():void 
