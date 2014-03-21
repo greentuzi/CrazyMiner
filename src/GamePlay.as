@@ -38,6 +38,7 @@ package
 			myPos = playerPosition;
 			initEntities();
 			addEntities();
+			
 		}
 		
 		private function initEntities():void {
