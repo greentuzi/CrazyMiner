@@ -13,6 +13,7 @@ package
 	{
 		//game info
 		private var playerNum:Number;
+		private var myPos:Number;
 		
 		//entities
 		private var playerArea:ImageDisplay;
@@ -34,6 +35,7 @@ package
 		public function GamePlay(playerNumber:Number = 2, playerPosition:Number = 0, stones:Array = null) 
 		{
 			playerNum = playerNumber;
+			myPos = playerPosition;
 			initEntities();
 			addEntities();
 		}
@@ -75,6 +77,14 @@ package
 			var array:Array = string.split("\n");
 			var i:int = array[0];
 			players[i].rope.launch(array);
+		}
+		
+		override public function update():void 
+		{
+			super.update();
+			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
+				players[myPos].rope.toLaunch();
+			}
 		}
 	}
 

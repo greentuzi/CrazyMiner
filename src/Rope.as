@@ -75,12 +75,6 @@ package
 				}
 				setAngle(angle);
 			}
-			
-			if (!launched&&Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
-				var convertedAngle:Number = 3.14 * (90 - angle) / 180;//should be radians
-				trace("my angle:" + (90 - angle));
-				Util.getInstance().send("241##launchRequire##" + convertedAngle + "##");
-			}
 		}
 		
 		public function launch(launchInfo:Array):void {
@@ -91,8 +85,8 @@ package
 			var backwardTime:Number = launchInfo[4];
 			
 			finalLength = Math.sqrt((x - endX) * (x - endX) + (y - endY) * (y - endY));
-			angle = 90 - ((Math.acos((endX - x) / finalLength))* 180 / 3.14);
-			trace(Math.asin( -1 / 2)*180/3.14);
+			angle = 90 - (Math.acos((endX - x) / finalLength))* 180 / 3.14;
+			trace("output angle:"+(Math.acos((endX - x) / finalLength))* 180 / 3.14);
 			speed = launchSpeed = (finalLength-Config.ROPE_LENGTH) / forwardTime;
 			backSpeed = (finalLength - Config.ROPE_LENGTH) / backwardTime;
 			
@@ -117,6 +111,12 @@ package
 		
 		public function getAngle():Number {
 			return angle;
+		}
+		
+		public function toLaunch():void {
+			trace("my angle:" + angle);
+			var convertedAngle:Number = 3.14 * (90 - angle) / 180;//should be radians
+			Util.getInstance().send("241##launchRequire##" + convertedAngle + "##");
 		}
 	}
 

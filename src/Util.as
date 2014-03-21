@@ -27,7 +27,7 @@ package
 			
 			xmlSocket.addEventListener(DataEvent.DATA, onData);
 			try{
-				xmlSocket.connect("172.18.159.243", 8765);
+				xmlSocket.connect("172.18.159.39", 8765);
 			}
 			catch (e:Error)
 			{
