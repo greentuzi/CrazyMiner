@@ -32,7 +32,7 @@ package
 		}
 		
 		
-		public function GamePlay(playerNumber:Number = 2, playerPosition:Number = 0, stones:Array = null) 
+		public function GamePlay(playerNumber:Number = 2, playerPosition:Number, stones:Array = null) 
 		{
 			playerNum = playerNumber;
 			myPos = playerPosition;
