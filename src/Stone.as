@@ -11,16 +11,10 @@ package
 	public class Stone extends Entity
 	{
 		private var kind:int;
-		private var speed_x:Number;
-		private var speed_y:Number;
-		private var isCatched:Boolean;
+		private var postion:int;
 		
-		public function Stone(x:int=0,y:int=0,kind:int=0) 
+		public function Stone(postion:int = 0,kind:int = 0) 
 		{
-			this.x = x;
-			this.y = y;
-			speed_x = speed_y = 0;
-			isCatched = false;
 			this.kind = kind;
 			switch(kind){
 				default:
@@ -29,28 +23,6 @@ package
 			}
 		}
 		
-		override public function update():void 
-		{
-			/*
-			if (!isCatched) {
-				var r:Rope = collide("Rope", x, y) as Rope;
-				if (r) {
-					trace("stone:x=" + x.toString() + ";y=" + y.toString());
-					var angle:Number = Math.atan2(centerY - r.originY, r.originX - centerX);
-					speed_x = Config.FIRE_SPEED * Math.cos(angle);
-					speed_y = - Config.FIRE_SPEED * Math.sin(angle);
-					isCatched = true;
-				}
-			}
-			else {
-				//trace("catch!!");
-				moveTo(x + speed_x * FP.elapsed, y + speed_y * FP.elapsed);
-				if (y <= Config.PLAYER_AREA_HEIGHT) {
-					FP.world.remove(this);
-				}
-			}
-			*/
-		}
 	}
 
 }

@@ -31,8 +31,7 @@ package
 			return instance;
 		}
 		
-		
-		public function GamePlay(playerNumber:Number = 2, playerPosition:Number, stones:Array = null) 
+		public function GamePlay(playerNumber:Number = 2, playerPosition:Number = 1, stones:Array = null) 
 		{
 			playerNum = playerNumber;
 			myPos = playerPosition;
