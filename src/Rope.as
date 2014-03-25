@@ -30,10 +30,9 @@ package
 		private var finalLength:Number;
 		private var image:Image;
 		
-		public function Rope(x:Number = 0.0, y:Number = 0.0)
+		public function Rope(ropeType:uint = 0)
 		{
-			this.x = x;
-			this.y = y;
+			
 			launched = false;
 			speed = 0;
 			waveSpeed = Config.WAVE_SPEED;

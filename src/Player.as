@@ -7,21 +7,26 @@ package
 	 * @author Lyudison
 	 */
 	public class Player extends Entity
-	{
-		//display
-		public var header:ImageDisplay;
-		public var platform:ImageDisplay;
-		public var rope:Rope;
-		//info
-		private var playerName:String;
+	{	
+		private var score:uint;
+		private var position:uint;
 		
-		public function Player(position_x:Number = 0.0, position_y:Number = 0.0) 
+		private var character:ImageDisplay;
+		private var platform:ImageDisplay;
+		private var rope:Rope;
+		private var tools:Array;
+		
+		public function Player(_postion:uint, _characterType:uint = 0, _platformType:uint = 0, _ropeType:uint = 0, toolTypes:Array = null) 
 		{
-			x = position_x;
-			y = position_y;
-			header = new ImageDisplay(x + Config.PLAYER_WIDTH / 2.0 - Config.PLAYER_WIDTH/2.0, y + Config.PLAYER_HEIGHT - Config.PLAYER_HEIGHT,Config.PLAYER);
-			platform = new ImageDisplay(x + Config.PLAYER_WIDTH/2.0 - Config.PLATFORM_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLATFORM_HEIGHT,Config.PLATFORM);
-			rope = new Rope(x + Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT);
+			score = 0;
+			position = _postion;
+			character = new ImageDisplay(Config.DISPLAY_CHARACTER, _characterType);
+			platform = new ImageDisplay(Config.DISPLAY_PLATFORM, _platformType);
+			rope = new Rope(_ropeType);
+			
+			character.moveTo(x + Config.PLAYER_WIDTH / 2.0 - Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLAYER_HEIGHT);
+			platform.moveTo(x + Config.PLAYER_WIDTH / 2.0 - Config.PLATFORM_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLATFORM_HEIGHT);
+			rope.moveTo(x + Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT);
 		}
 	}
 

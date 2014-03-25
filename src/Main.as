@@ -12,7 +12,7 @@ package
 		public function Main()
 		{
 			super(Config.RESOLUTION_WIDTH, Config.RESOLUTION_HEIGHT, 60, false);
-			gamePlay = GamePlay.getInstance();
+			gamePlay = GamePlay.getInstance(null,0,null);
 			FP.world = gamePlay;
 		}
 		

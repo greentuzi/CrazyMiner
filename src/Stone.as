@@ -10,10 +10,10 @@ package
 	 */
 	public class Stone extends Entity
 	{
-		private var kind:int;
-		private var postion:int;
+		private var kind:uint;
+		private var postion:uint;
 		
-		public function Stone(postion:int = 0,kind:int = 0) 
+		public function Stone(postion:uint = 0,kind:uint = 0) 
 		{
 			this.kind = kind;
 			switch(kind){

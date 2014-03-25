@@ -1,5 +1,6 @@
 package  
 {
+	import flash.events.DRMAuthenticationCompleteEvent;
 	/**
 	 * ...
 	 * @author Lyudison
@@ -13,6 +14,22 @@ package
 		//room
 		[Embed(source = "../embed/readyButton.jpg")]
 		public static var READY_BUTTON:Class;
+		
+		//category
+		public static var DISPLAY_CHARACTER:uint = 0;
+		public static var DISPLAY_PLATFORM:uint = 1;
+		public static var DISPLAY_ROPE:uint = 2;
+		public static var DISPLAY_PLAYER_BACKGROUND:uint = 3;
+		public static var DISPLAY_MINE_BACKGROUND:uint = 4;
+		
+		//characters
+		[Embed(source = "../embed/player.png")] public static var CHARACTER_DEFAULT:Class;
+		
+		//platforms
+		[Embed(source = "../embed/platform.png")] public static var PLATFORM_DEFAULT:Class;
+		
+		//ropes
+		[Embed(source = "../embed/rope.png")] public static var ROPE_DEFAULT:Class;
 		
 		//gameplay common
 		public static var PLAYER_AREA_HEIGHT:Number = 144;
@@ -34,6 +51,7 @@ package
 		public static var PLAYER_Y:Number = PLAYER_AREA_HEIGHT - PLAYER_HEIGHT;
 		public static var PLATFORM_Y:Number = PLAYER_AREA_HEIGHT - PLATFORM_HEIGHT;
 		public static var ROPE_Y:Number = PLAYER_AREA_HEIGHT;
+		public static var STONE_BOX:Number = 60;
 		
 		public static var CLAW_Y:Number = PLAYER_AREA_HEIGHT + ROPE_LENGTH;
 		
@@ -55,9 +73,6 @@ package
 		//gameplay image
 		[Embed(source = "../embed/playerArea.png")] public static var PLAYER_AREA:Class;
 		[Embed(source = "../embed/mineArea.png")] public static var MINE_AREA:Class;
-		[Embed(source = "../embed/player.png")] public static var PLAYER:Class;
-		[Embed(source="../embed/platform.png")] public static var PLATFORM:Class;
-		[Embed(source = "../embed/rope.png")] public static var ROPE:Class;
 		
 		public function Config() 
 		{

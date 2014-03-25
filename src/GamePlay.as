@@ -13,63 +13,61 @@ package
 	{
 		//game info
 		private var playerNum:Number;
-		private var myPos:Number;
+		private var playerPosition:Number;
 		
 		//entities
 		private var playerArea:ImageDisplay;
 		private var mineArea:ImageDisplay;
 		private var players:Array;
 		private var stones:Array;
-		private var stoneCount:int = 10;
+		
+		//stones' map
+		private var stoneMap:Array;
 		
 		private static var instance:GamePlay = null;
 		
-		public static function getInstance():GamePlay
+		public static function getInstance(players:Array, playerPosition:Number, stones:Array):GamePlay
 		{
 			if (instance == null)
-				return instance = new GamePlay();
+				return instance = new GamePlay(players,playerPosition,stones);
 			return instance;
 		}
 		
-		public function GamePlay(playerNumber:Number = 2, playerPosition:Number = 1, stones:Array = null) 
+		public function GamePlay(_playerPosition:Number, _players:Array, _stones:Array) 
 		{
-			playerNum = playerNumber;
-			myPos = playerPosition;
-			initEntities();
-			addEntities();
+			playerPosition = _playerPosition;
 			
-		}
-		
-		private function initEntities():void {
-			playerArea = new ImageDisplay(0, 0, Config.PLAYER_AREA);
-			mineArea = new ImageDisplay(0, 0, Config.MINE_AREA);
+			//background
+			playerArea = new ImageDisplay(Config.DISPLAY_PLAYER_BACKGROUND);//default display at (0,0)
+			mineArea = new ImageDisplay(Config.DISPLAY_MINE_BACKGROUND);
 			mineArea.moveTo(0, Config.PLAYER_AREA_HEIGHT);
 			
-			players = new Array;
-			for (var i:int = 0; i < playerNum; i++){
-				players.push(new Player(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y));
+			//players
+			players = _players;
+			for (var i:int = 0; i < players.length; i++)
+				players[i].moveTo(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
+			
+			//stones
+			stones = _stones;
+			for (var j:int = 0; j < stones.length; j++) {
+				var col:Number = Config.RESOLUTION_WIDTH % stones[j].position;
+				var row:Number = Config.RESOLUTION_HEIGHT / stones[j].postion * int(Config.RESOLUTION_WIDTH / Config.STONE_BOX);
+				stones[j].moveTo(col * Config.STONE_BOX, row * Config.STONE_BOX + Config.PLAYER_AREA_HEIGHT);
 			}
-			/*
-			stones = new Array;
-			for (var j:int = 0; j < stoneCount; j++) {
-				var x:Number = Math.random() * Config.RESOLUTION_WIDTH;
-				var y:Number = Math.random() * Config.MINE_AREA_HEIGHT + Config.PLAYER_AREA_HEIGHT + Config.ROPE_LENGTH * 2;
-				stones.push(new Stone(x, y));
-			}*/
+			addEntities();
 		}
 		
 		private function addEntities():void {
 			add(playerArea);
 			add(mineArea);
-			for (var i:int = 0; i < playerNum; i++) {
-				add(players[i].header);
+			for (var i:int = 0; i < players.length; i++) {
+				add(players[i].character);
 				add(players[i].platform);
 				add(players[i].rope);
 			}
-			/*
-			for (var j:int = 0; j < stoneCount; j++) {
+			for (var j:int = 0; j < stones.length; j++) {
 				add(stones[j]);
-			}*/
+			}
 		}
 		
 		public function receive(string:String):void

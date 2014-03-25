@@ -27,7 +27,7 @@ package
 			
 			xmlSocket.addEventListener(DataEvent.DATA, onData);
 			try{
-				xmlSocket.connect("172.18.159.243", 8765);
+				xmlSocket.connect("172.18.158.116", 8765);
 			}
 			catch (e:Error)
 			{
@@ -47,6 +47,7 @@ package
 		private function onData(event:DataEvent): void {             
 			if (event.data == "") return;
 			var string:String = event.data;
+			trace(string);
 			var array:Array = string.split("##");
 			switch(array[0])
 			{
@@ -55,5 +56,4 @@ package
 			}
 		}
 	}
-
 }
