@@ -10,16 +10,35 @@ package
 	 */
 	public class Stone extends Entity
 	{
-		private var kind:uint;
-		private var postion:uint;
+		public var kind:uint;
+		public var position:uint;
 		
-		public function Stone(postion:uint = 0,kind:uint = 0) 
+		public function Stone(_position:uint = 0, _kind:uint = 0) 
 		{
-			this.kind = kind;
+			kind = _kind;
+			position = _position;
+			//trace(kind);
 			switch(kind){
-				default:
-					graphic = Image.createCircle(25, 0xff0000);
+				case Config.STONE1_SMALL:
+					graphic = new Image(EmbedImage.STONE1_SMALL_IMAGE);
 					break;
+				case Config.STONE1_MIDDLE:
+					graphic = new Image(EmbedImage.STONE1_MIDDLE_IMAGE);
+					break;
+				case Config.STONE1_BIG:
+					graphic = new Image(EmbedImage.STONE1_BIG_IMAGE);
+					break;
+				case Config.STONE2_SMALL:
+					graphic = new Image(EmbedImage.STONE2_SMALL_IMAGE);
+					break;
+				case Config.STONE2_MIDDLE:
+					graphic = new Image(EmbedImage.STONE2_MIDDLE_IMAGE);
+					break;
+				case Config.STONE2_BIG:
+					graphic = new Image(EmbedImage.STONE2_BIG_IMAGE);
+					break;
+				default:
+					graphic = Image.createCircle(5, 0x00ff00);
 			}
 		}
 		

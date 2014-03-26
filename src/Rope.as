@@ -28,7 +28,7 @@ package
 		private var endY:Number;
 		private var length:Number;
 		private var finalLength:Number;
-		private var image:Image;
+		private var image:EmbedImage;
 		
 		public function Rope(ropeType:uint = 0)
 		{
@@ -37,7 +37,7 @@ package
 			speed = 0;
 			waveSpeed = Config.WAVE_SPEED;
 			length = Config.ROPE_LENGTH;
-			image = new Image(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
+			image = new EmbedImage(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
 			image.originX = Config.ROPE_WIDTH / 2;
 			graphic = image;
 			setAngle(Config.WAVE_ANGLE_MIN);
@@ -96,7 +96,7 @@ package
 		
 		public function setLength(distance:Number):void {
 			length = distance;
-			image = new Image(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
+			image = new EmbedImage(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
 			image.originX = Config.ROPE_WIDTH / 2;
 			image.angle = angle;
 			graphic = image;

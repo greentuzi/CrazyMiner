@@ -5,6 +5,7 @@ package
 	import flash.events.DataEvent;
 	import flash.net.XMLSocket;
 	import net.flashpunk.graphics.Text;
+	import com.adobe.serialization.json.JSON;
 	import net.flashpunk.FP;
 	/**
 	 * ...
@@ -14,12 +15,14 @@ package
 	{
 		private var xmlSocket:XMLSocket;	
 		private static var instance:Util = null;
+		
 		public static function getInstance():Util
 		{
 			if (instance == null)
-				return instance = new Util();
+				return instance = new Util;
 			return instance;
 		}
+		
 		public function Util() 
 		{
 			xmlSocket = new XMLSocket();
@@ -27,7 +30,7 @@ package
 			
 			xmlSocket.addEventListener(DataEvent.DATA, onData);
 			try{
-				xmlSocket.connect("172.18.158.116", 8765);
+				xmlSocket.connect("172.18.157.116", 8765);
 			}
 			catch (e:Error)
 			{
@@ -35,25 +38,39 @@ package
 			}
 		}
 		
-		public function send(s:String):void
+		public function send(jsonObject:Object):void
 		{
-			xmlSocket.send(s);
+			var jsonString : String = JSON.encode(jsonObject);
+			xmlSocket.send(jsonString);
 		}
+		
 		private function onConnect (event:Event) :void 
 		{
 
 		}
 		
-		private function onData(event:DataEvent): void {             
+		private function onData(event:DataEvent): void {
+			
 			if (event.data == "") return;
-			var string:String = event.data;
-			trace(string);
-			var array:Array = string.split("##");
-			switch(array[0])
+			//trace(event.data);
+			var jsonObject:Object = JSON.decode(event.data);
+			
+			var stone:Stone;
+			switch(jsonObject.flagID)
 			{
-				case "242":
-					GamePlay.getInstance().receive(array[2]);
+				case "201":
+					var array:Array = new Array;
+					for (var i:int = 0; i < jsonObject.ores.length; i++)
+					{
+						stone = new Stone(uint(jsonObject.ores[i].orePos), uint(jsonObject.ores[i].oreType));
+						array.push(stone);
+					}
+					GamePlay.getInstance().setInstance(0, null, array);
+					FP.world = GamePlay.getInstance();
+					break;
 			}
+			
 		}
 	}
+
 }

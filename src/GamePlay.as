@@ -26,14 +26,29 @@ package
 		
 		private static var instance:GamePlay = null;
 		
-		public static function getInstance(_playerPosition:Number, _players:Array, _stones:Array):GamePlay
+		public function setInstance(_playerPosition:Number, _players:Array, _stones:Array):void
 		{
-			if (instance == null)
-				return instance = new GamePlay(_playerPosition,_players,_stones);
+			//stones
+			stones = _stones;
+			if (stones) {
+			for (var j:int = 0; j < stones.length; j++) {
+				var col:Number = stones[j].position%24;
+				var row:Number = stones[j].position/24;
+				stones[j].moveTo(col * Config.STONE_BOX, row * Config.STONE_BOX + Config.PLAYER_AREA_HEIGHT);
+			}
+			}
+			addEntities();
+		}
+		
+		public static function getInstance():GamePlay
+		{
+			if (instance == null){
+				return instance = new GamePlay;
+			}
 			return instance;
 		}
 		
-		public function GamePlay(_playerPosition:Number, _players:Array, _stones:Array) 
+		public function GamePlay(_playerPosition:Number = 0, _players:Array = null, _stones:Array = null) 
 		{
 			playerPosition = _playerPosition;
 			
@@ -53,7 +68,7 @@ package
 			if(stones)
 			for (var j:int = 0; j < stones.length; j++) {
 				var col:Number = Config.RESOLUTION_WIDTH % stones[j].position;
-				var row:Number = Config.RESOLUTION_HEIGHT / stones[j].postion * int(Config.RESOLUTION_WIDTH / Config.STONE_BOX);
+				var row:Number = Config.RESOLUTION_HEIGHT / stones[j].position * int(Config.RESOLUTION_WIDTH / Config.STONE_BOX);
 				stones[j].moveTo(col * Config.STONE_BOX, row * Config.STONE_BOX + Config.PLAYER_AREA_HEIGHT);
 			}
 			addEntities();
@@ -62,30 +77,30 @@ package
 		private function addEntities():void {
 			add(playerArea);
 			add(mineArea);
-			if(players)
+			if(players){
 			for (var i:int = 0; i < players.length; i++) {
 				add(players[i].character);
 				add(players[i].platform);
 				add(players[i].rope);
 			}
-			if(stones)
+			}
+			if(stones){
 			for (var j:int = 0; j < stones.length; j++) {
 				add(stones[j]);
 			}
+			}
 		}
 		
-		public function receive(string:String):void
+		public function receive(actionInfo:Object):void
 		{
-			var array:Array = string.split("\n");
-			var i:int = array[0];
-			players[i].rope.launch(array);
+			
 		}
 		
 		override public function update():void 
 		{
 			super.update();
 			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
-				players[playerPosition].rope.toLaunch();
+				players[playerPosition].setAction();
 			}
 		}
 	}
