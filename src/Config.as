@@ -52,6 +52,12 @@ package
 		//action
 		public static var ACTION_LAUNCH:uint = 0;
 		public static var ACTION_TOOL:uint = 1;
+		public static var ACTION_TO_LAUNCH:uint = 2;
+		
+		//ropes
+		public static var ROPE_DEFAULT:uint = 0;
+		public static var ROPE_CATCH_STONE1:uint = 1;
+		public static var ROPE_CATCH_STONE2:uint = 2;
 	}
 
 }

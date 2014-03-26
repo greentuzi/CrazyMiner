@@ -28,6 +28,14 @@ package
 		
 		public function setInstance(_playerPosition:Number, _players:Array, _stones:Array):void
 		{
+			playerNum = _players.length;
+			
+			//players
+			players = _players;
+			if(players)
+			for (var i:int = 0; i < players.length; i++)
+				players[i].moveTo(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
+			
 			//stones
 			stones = _stones;
 			if (stones) {
@@ -79,9 +87,9 @@ package
 			add(mineArea);
 			if(players){
 			for (var i:int = 0; i < players.length; i++) {
-				add(players[i].character);
-				add(players[i].platform);
-				add(players[i].rope);
+				add(players[i].getCharacter());
+				add(players[i].getPlatform());
+				add(players[i].getRope());
 			}
 			}
 			if(stones){
@@ -93,14 +101,16 @@ package
 		
 		public function receive(actionInfo:Object):void
 		{
-			
+			players[actionInfo.playerID].setAction(actionInfo);
 		}
 		
 		override public function update():void 
 		{
 			super.update();
 			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
-				players[playerPosition].setAction();
+				var toLaunchInfo:Object = new Object;
+				toLaunchInfo.flagID = 241;
+				players[playerPosition].setAction(toLaunchInfo);
 			}
 		}
 	}

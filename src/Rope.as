@@ -18,7 +18,7 @@ package
 	public class Rope extends Entity
 	{
 		private var launched:Boolean;
-		private var isCatch:Boolean;
+		private var catchStone:uint;
 		private var speed:Number;
 		private var launchSpeed:Number;
 		private var backSpeed:Number;
@@ -28,7 +28,7 @@ package
 		private var endY:Number;
 		private var length:Number;
 		private var finalLength:Number;
-		private var image:EmbedImage;
+		private var image:Image;
 		
 		public function Rope(ropeType:uint = 0)
 		{
@@ -37,11 +37,9 @@ package
 			speed = 0;
 			waveSpeed = Config.WAVE_SPEED;
 			length = Config.ROPE_LENGTH;
-			image = new EmbedImage(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
-			image.originX = Config.ROPE_WIDTH / 2;
-			graphic = image;
+			setLength(length);
 			setAngle(Config.WAVE_ANGLE_MIN);
-			isCatch = false;
+			catchStone = 0;
 		}
 		
 		override public function update():void 
@@ -49,7 +47,7 @@ package
 			//rope launch
 			if(launched) {
 				length = length + speed * FP.elapsed;
-				if (length>=finalLength) {
+				if (length >= finalLength) {
 					speed = -backSpeed;
 				}
 				//already back
@@ -57,7 +55,7 @@ package
 					length = Config.ROPE_LENGTH;
 					speed = launchSpeed;
 					launched = false;
-					isCatch = false;
+					catchStone = 0;
 				}
 				setLength(length);
 			}
@@ -76,12 +74,13 @@ package
 			}
 		}
 		
-		public function launch(launchInfo:Array):void {
+		public function launch(launchInfo:Object):void {
 			launched = true;
-			endX = launchInfo[1];
-			endY = launchInfo[2];
-			var forwardTime:Number = launchInfo[3];
-			var backwardTime:Number = launchInfo[4];
+			endX = launchInfo.destX;
+			endY = launchInfo.destY;
+			catchStone = launchInfo.oriID;
+			var forwardTime:Number = launchInfo.reachTime;
+			var backwardTime:Number = launchInfo.returnTime;
 			
 			finalLength = Math.sqrt((x - endX) * (x - endX) + (y - endY) * (y - endY));
 			angle = 90 - (Math.acos((endX - x) / finalLength))* 180 / 3.14;
@@ -94,9 +93,24 @@ package
 			//trace("angle:" + angle);
 		}
 		
-		public function setLength(distance:Number):void {
-			length = distance;
-			image = new EmbedImage(Config.ROPE, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
+		public function setLength(_length:Number):void {
+			length = _length;
+			/*
+			var ropeClass:Class = EmbedImage.ROPE_DEFAULT;
+			switch(catchStone) {
+				case Config.ROPE_DEFAULT:
+					ropeClass = EmbedImage.ROPE_DEFAULT;
+					break;
+				case Config.ROPE_CATCH_STONE1:
+					ropeClass = EmbedImage.ROPE_CATCH_STONE1;
+					break;
+				case Config.ROPE_CATCH_STONE2:
+					ropeClass = EmbedImage.ROPE_CATCH_STONE2;
+					break;
+				default:
+					trace("Unknown catch stone state. Check at Rope.setLength()");
+			}*/
+			image = new Image(EmbedImage.ROPE_DEFAULT, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
 			image.originX = Config.ROPE_WIDTH / 2;
 			image.angle = angle;
 			graphic = image;
@@ -115,7 +129,11 @@ package
 		public function toLaunch():void {
 			//trace("my angle:" + angle);
 			var convertedAngle:Number = 3.14 * (90 - angle) / 180;//should be radians
-			Util.getInstance().send("241##launchRequire##" + convertedAngle + "##");
+			var toLaunchInfo:Object = new Object;
+			toLaunchInfo.flagID = 241;
+			toLaunchInfo.flagName = "launchRequire";
+			toLaunchInfo.angle = convertedAngle;
+			Util.getInstance().send(toLaunchInfo);
 		}
 	}
 

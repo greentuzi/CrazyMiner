@@ -30,8 +30,11 @@ package
 			rope.moveTo(x + Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT);
 		}
 		
-		public function setAction(action:Object) {
-			switch(action.type) {
+		public function setAction(action:Object):void {
+			switch(action.flagID) {
+				case 241:
+					rope.toLaunch();
+					break;
 				case Config.ACTION_LAUNCH:
 					rope.launch(action);
 					break;
@@ -47,9 +50,17 @@ package
 			return score;
 		}
 		
-		public function getPosition():void 
+		public function getPosition():uint 
 		{
 			return position;
+		}
+		
+		public function getCharacter():ImageDisplay {
+			return character;
+		}
+		
+		public function getPlatform():ImageDisplay {
+			return platform;
 		}
 		
 		public function getRope():Rope {

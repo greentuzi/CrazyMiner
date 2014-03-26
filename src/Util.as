@@ -40,6 +40,7 @@ package
 		
 		public function send(jsonObject:Object):void
 		{
+			trace(jsonObject.angle);
 			var jsonString : String = JSON.encode(jsonObject);
 			xmlSocket.send(jsonString);
 		}
@@ -52,7 +53,7 @@ package
 		private function onData(event:DataEvent): void {
 			
 			if (event.data == "") return;
-			//trace(event.data);
+			trace(event.data);
 			var jsonObject:Object = JSON.decode(event.data);
 			
 			var stone:Stone;
@@ -65,8 +66,14 @@ package
 						stone = new Stone(uint(jsonObject.ores[i].orePos), uint(jsonObject.ores[i].oreType));
 						array.push(stone);
 					}
-					GamePlay.getInstance().setInstance(0, null, array);
+					var players:Array = new Array;
+					for (var j:int = 0; j < 2; j++)
+						players.push(new Player(j));
+					GamePlay.getInstance().setInstance(0, players, array);
 					FP.world = GamePlay.getInstance();
+					break;
+				case "242":
+					GamePlay.getInstance().receive(jsonObject);
 					break;
 			}
 			
