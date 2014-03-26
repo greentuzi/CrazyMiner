@@ -22,6 +22,10 @@ package
 		public static var DISPLAY_PLAYER_BACKGROUND:uint = 3;
 		public static var DISPLAY_MINE_BACKGROUND:uint = 4;
 		
+		//backgrounds
+		[Embed(source = "../embed/playerArea.png")] public static var PLAYER_AREA:Class;
+		[Embed(source = "../embed/mineArea.png")] public static var MINE_AREA:Class;
+		
 		//characters
 		[Embed(source = "../embed/player.png")] public static var CHARACTER_DEFAULT:Class;
 		
@@ -31,7 +35,7 @@ package
 		//ropes
 		[Embed(source = "../embed/rope.png")] public static var ROPE_DEFAULT:Class;
 		
-		//gameplay common
+		//gameplay display
 		public static var PLAYER_AREA_HEIGHT:Number = 144;
 		public static var MINE_AREA_HEIGHT:Number = RESOLUTION_HEIGHT - PLAYER_AREA_HEIGHT;
 		public static var PLAYER_WIDTH:Number = 114;
@@ -52,33 +56,11 @@ package
 		public static var PLATFORM_Y:Number = PLAYER_AREA_HEIGHT - PLATFORM_HEIGHT;
 		public static var ROPE_Y:Number = PLAYER_AREA_HEIGHT;
 		public static var STONE_BOX:Number = 60;
-		
 		public static var CLAW_Y:Number = PLAYER_AREA_HEIGHT + ROPE_LENGTH;
 		
-		//gameplay 1v1
-		public static var MODE1v1_PLAYER_X:Array = new Array(
-			RESOLUTION_WIDTH / 4 - PLAYER_WIDTH / 2,
-			RESOLUTION_WIDTH * 3 / 4 - PLAYER_WIDTH / 2);
-		public static var MODE1v1_PLATFORM_X:Array = new Array(
-			RESOLUTION_WIDTH / 4 - PLATFORM_WIDTH / 2,
-			RESOLUTION_WIDTH * 3 / 4 - PLATFORM_WIDTH / 2);
-		public static var MODE1v1_ROPE_X:Array = new Array(
-			RESOLUTION_WIDTH / 4 - ROPE_WIDTH / 2,
-			RESOLUTION_WIDTH * 3 / 4 - ROPE_WIDTH / 2);
-		public static var MODE1v1_CLAW_X:Array = new Array(
-			RESOLUTION_WIDTH / 4 - CLAW_WIDTH / 2,
-			RESOLUTION_WIDTH * 3 / 4 - CLAW_WIDTH / 2);
-		
-		
-		//gameplay image
-		[Embed(source = "../embed/playerArea.png")] public static var PLAYER_AREA:Class;
-		[Embed(source = "../embed/mineArea.png")] public static var MINE_AREA:Class;
-		
-		public function Config() 
-		{
-			
-		}
-		
+		//action
+		public static var ACTION_LAUNCH:uint = 0;
+		public static var ACTION_TOOL:uint = 1;
 	}
 
 }

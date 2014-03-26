@@ -1,5 +1,6 @@
 package
 {
+	import adobe.utils.CustomActions;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
@@ -12,9 +13,8 @@ package
 		public function Main()
 		{
 			super(Config.RESOLUTION_WIDTH, Config.RESOLUTION_HEIGHT, 60, false);
-			gamePlay = GamePlay.getInstance(null,0,null);
+			gamePlay = GamePlay.getInstance(0,null,null);
 			FP.world = gamePlay;
 		}
-		
 	}
 }

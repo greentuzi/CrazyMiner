@@ -85,13 +85,13 @@ package
 			
 			finalLength = Math.sqrt((x - endX) * (x - endX) + (y - endY) * (y - endY));
 			angle = 90 - (Math.acos((endX - x) / finalLength))* 180 / 3.14;
-			trace("output angle:"+(Math.acos((endX - x) / finalLength))* 180 / 3.14);
+			//trace("output angle:"+(Math.acos((endX - x) / finalLength))* 180 / 3.14);
 			speed = launchSpeed = (finalLength-Config.ROPE_LENGTH) / forwardTime;
 			backSpeed = (finalLength - Config.ROPE_LENGTH) / backwardTime;
 			
-			trace("launchInfo:" + launchInfo);
-			trace("finalLength:" + finalLength);
-			trace("angle:" + angle);
+			//trace("launchInfo:" + launchInfo);
+			//trace("finalLength:" + finalLength);
+			//trace("angle:" + angle);
 		}
 		
 		public function setLength(distance:Number):void {
@@ -113,7 +113,7 @@ package
 		}
 		
 		public function toLaunch():void {
-			trace("my angle:" + angle);
+			//trace("my angle:" + angle);
 			var convertedAngle:Number = 3.14 * (90 - angle) / 180;//should be radians
 			Util.getInstance().send("241##launchRequire##" + convertedAngle + "##");
 		}

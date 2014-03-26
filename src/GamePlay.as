@@ -26,10 +26,10 @@ package
 		
 		private static var instance:GamePlay = null;
 		
-		public static function getInstance(players:Array, playerPosition:Number, stones:Array):GamePlay
+		public static function getInstance(_playerPosition:Number, _players:Array, _stones:Array):GamePlay
 		{
 			if (instance == null)
-				return instance = new GamePlay(players,playerPosition,stones);
+				return instance = new GamePlay(_playerPosition,_players,_stones);
 			return instance;
 		}
 		
@@ -44,11 +44,13 @@ package
 			
 			//players
 			players = _players;
+			if(players)
 			for (var i:int = 0; i < players.length; i++)
 				players[i].moveTo(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
 			
 			//stones
 			stones = _stones;
+			if(stones)
 			for (var j:int = 0; j < stones.length; j++) {
 				var col:Number = Config.RESOLUTION_WIDTH % stones[j].position;
 				var row:Number = Config.RESOLUTION_HEIGHT / stones[j].postion * int(Config.RESOLUTION_WIDTH / Config.STONE_BOX);
@@ -60,11 +62,13 @@ package
 		private function addEntities():void {
 			add(playerArea);
 			add(mineArea);
+			if(players)
 			for (var i:int = 0; i < players.length; i++) {
 				add(players[i].character);
 				add(players[i].platform);
 				add(players[i].rope);
 			}
+			if(stones)
 			for (var j:int = 0; j < stones.length; j++) {
 				add(stones[j]);
 			}
@@ -81,7 +85,7 @@ package
 		{
 			super.update();
 			if (Input.mousePressed && Input.mouseY > Config.PLAYER_AREA_HEIGHT) {
-				players[myPos].rope.toLaunch();
+				players[playerPosition].rope.toLaunch();
 			}
 		}
 	}

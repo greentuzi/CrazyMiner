@@ -1,6 +1,7 @@
 package  
 {
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	/**
 	 * ...
@@ -27,6 +28,36 @@ package
 			character.moveTo(x + Config.PLAYER_WIDTH / 2.0 - Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLAYER_HEIGHT);
 			platform.moveTo(x + Config.PLAYER_WIDTH / 2.0 - Config.PLATFORM_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLATFORM_HEIGHT);
 			rope.moveTo(x + Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT);
+		}
+		
+		public function setAction(action:Object) {
+			switch(action.type) {
+				case Config.ACTION_LAUNCH:
+					rope.launch(action);
+					break;
+				case Config.ACTION_TOOL:
+					//...
+					break;
+				default:
+					trace("Unknown action type!!!");
+			}
+		}
+		
+		public function getScore():uint {
+			return score;
+		}
+		
+		public function getPosition():void 
+		{
+			return position;
+		}
+		
+		public function getRope():Rope {
+			return rope;
+		}
+		
+		public function getTools():Array {
+			return tools;
 		}
 	}
 
