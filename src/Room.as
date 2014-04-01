@@ -9,24 +9,24 @@ package
 	 
 	public class Room extends World
 	{
-		private var readyBtn1:Button;
-		private var readyBtn2:Button;
-		private var name1:TextDisplay;
-		private var name2:TextDisplay;
-		private var player1:ImageDisplay;
-		private var player2:ImageDisplay;
+		//info
+		private var roomName:String;
+		private var characters:Array;//'Character' used for an always existed identity, while 'Player' for just 'GamePlay'
+		private var readyStates:Array;
 		
-		public function Room() 
+		//image display
+		private var characterDisplays:Array;
+		private var readyDisplays:Array;
+		private var infoDisplays:Array;
+		
+		public function Room(_roomName:String, _characters:Array, _readyState:Array) 
 		{
 			initEntities();
 			addEntities();
 		}
 		
 		private function initEntities():void {
-			readyBtn1 = new Button(Config.READY_BUTTON);
-			readyBtn2 = new Button(Config.READY_BUTTON);
-			readyBtn1.moveTo(200, 500);
-			readyBtn2.moveTo(500, 500);
+			
 			
 			name1 = new TextDisplay("player1");
 			name2 = new TextDisplay("player2");

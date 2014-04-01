@@ -30,7 +30,7 @@ package
 			
 			xmlSocket.addEventListener(DataEvent.DATA, onData);
 			try{
-				xmlSocket.connect("172.18.157.116", 8765);
+				xmlSocket.connect("172.18.159.243", 8765);
 			}
 			catch (e:Error)
 			{
@@ -53,7 +53,7 @@ package
 		private function onData(event:DataEvent): void {
 			
 			if (event.data == "") return;
-			trace(event.data);
+			trace("onData:"+event.data);
 			var jsonObject:Object = JSON.decode(event.data);
 			
 			var stone:Stone;
@@ -69,11 +69,13 @@ package
 					var players:Array = new Array;
 					for (var j:int = 0; j < 2; j++)
 						players.push(new Player(j));
-					GamePlay.getInstance().setInstance(0, players, array);
-					FP.world = GamePlay.getInstance();
+					CrazyMiner.createGamePlay(0, players, array);
+					//GamePlay.getInstance().setInstance(0, players, array);
+					//FP.world = GamePlay.getInstance();
 					break;
 				case "242":
-					GamePlay.getInstance().receive(jsonObject);
+					//GamePlay.getInstance().receive(jsonObject);
+					CrazyMiner.gamePlay.receive(jsonObject);
 					break;
 			}
 			

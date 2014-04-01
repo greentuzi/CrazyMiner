@@ -30,12 +30,18 @@ package
 			rope.moveTo(x + Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT);
 		}
 		
+		public function move(_x:Number, _y:Number):void {
+			character.moveTo(_x + Config.PLAYER_WIDTH / 2.0 - Config.PLAYER_WIDTH / 2.0, _y + Config.PLAYER_HEIGHT - Config.PLAYER_HEIGHT);
+			platform.moveTo(_x + Config.PLAYER_WIDTH / 2.0 - Config.PLATFORM_WIDTH / 2.0, _y + Config.PLAYER_HEIGHT - Config.PLATFORM_HEIGHT);
+			rope.moveTo(_x + Config.PLAYER_WIDTH / 2.0, _y + Config.PLAYER_HEIGHT);
+		}
+		
 		public function setAction(action:Object):void {
 			switch(action.flagID) {
 				case 241:
 					rope.toLaunch();
 					break;
-				case Config.ACTION_LAUNCH:
+				case "242":
 					rope.launch(action);
 					break;
 				case Config.ACTION_TOOL:

@@ -95,7 +95,7 @@ package
 		
 		public function setLength(_length:Number):void {
 			length = _length;
-			/*
+			
 			var ropeClass:Class = EmbedImage.ROPE_DEFAULT;
 			switch(catchStone) {
 				case Config.ROPE_DEFAULT:
@@ -109,7 +109,7 @@ package
 					break;
 				default:
 					trace("Unknown catch stone state. Check at Rope.setLength()");
-			}*/
+			}
 			image = new Image(EmbedImage.ROPE_DEFAULT, new Rectangle(0, Config.ROPE_MAX_LENGTH-length, Config.ROPE_WIDTH, length));
 			image.originX = Config.ROPE_WIDTH / 2;
 			image.angle = angle;

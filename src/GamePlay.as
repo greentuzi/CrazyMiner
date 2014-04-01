@@ -12,7 +12,7 @@ package
 	public class GamePlay extends World
 	{
 		//game info
-		private var playerNum:Number;
+		private var playerNumber:Number;
 		private var playerPosition:Number;
 		
 		//entities
@@ -21,43 +21,10 @@ package
 		private var players:Array;
 		private var stones:Array;
 		
-		//stones' map
-		private var stoneMap:Array;
-		
-		private static var instance:GamePlay = null;
-		
-		public function setInstance(_playerPosition:Number, _players:Array, _stones:Array):void
-		{
-			playerNum = _players.length;
-			
-			//players
-			players = _players;
-			if(players)
-			for (var i:int = 0; i < players.length; i++)
-				players[i].moveTo(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
-			
-			//stones
-			stones = _stones;
-			if (stones) {
-			for (var j:int = 0; j < stones.length; j++) {
-				var col:Number = stones[j].position%24;
-				var row:Number = stones[j].position/24;
-				stones[j].moveTo(col * Config.STONE_BOX, row * Config.STONE_BOX + Config.PLAYER_AREA_HEIGHT);
-			}
-			}
-			addEntities();
-		}
-		
-		public static function getInstance():GamePlay
-		{
-			if (instance == null){
-				return instance = new GamePlay;
-			}
-			return instance;
-		}
-		
 		public function GamePlay(_playerPosition:Number = 0, _players:Array = null, _stones:Array = null) 
 		{
+			playerNumber = _players.length;
+			//trace(playerNumber);
 			playerPosition = _playerPosition;
 			
 			//background
@@ -67,41 +34,46 @@ package
 			
 			//players
 			players = _players;
+			
 			if(players)
-			for (var i:int = 0; i < players.length; i++)
-				players[i].moveTo(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNum / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
+			for (var i:int = 0; i < players.length; i++){
+				players[i].move(Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNumber / 2.0 - Config.PLAYER_WIDTH / 2.0, Config.PLAYER_Y);
+				trace("x:" + (Config.RESOLUTION_WIDTH * (2 * i + 1) / playerNumber / 2.0 - Config.PLAYER_WIDTH / 2.0));
+			}
 			
 			//stones
 			stones = _stones;
-			if(stones)
+			if (stones) 
 			for (var j:int = 0; j < stones.length; j++) {
-				var col:Number = Config.RESOLUTION_WIDTH % stones[j].position;
-				var row:Number = Config.RESOLUTION_HEIGHT / stones[j].position * int(Config.RESOLUTION_WIDTH / Config.STONE_BOX);
-				stones[j].moveTo(col * Config.STONE_BOX, row * Config.STONE_BOX + Config.PLAYER_AREA_HEIGHT);
+				var col:Number = stones[j].position%24;
+				var row:Number = stones[j].position/24;
+				stones[j].moveTo(col * Config.STONE_BOX + Config.MINE_LEFT, row * Config.STONE_BOX + Config.MINE_TOP);
 			}
+			
 			addEntities();
 		}
 		
 		private function addEntities():void {
+			
 			add(playerArea);
 			add(mineArea);
-			if(players){
+			
+			if(players)
 			for (var i:int = 0; i < players.length; i++) {
 				add(players[i].getCharacter());
 				add(players[i].getPlatform());
 				add(players[i].getRope());
 			}
-			}
-			if(stones){
+			
+			if (stones) 
 			for (var j:int = 0; j < stones.length; j++) {
 				add(stones[j]);
-			}
 			}
 		}
 		
 		public function receive(actionInfo:Object):void
 		{
-			players[actionInfo.playerID].setAction(actionInfo);
+			players[actionInfo.playID].setAction(actionInfo);
 		}
 		
 		override public function update():void 

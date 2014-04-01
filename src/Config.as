@@ -29,6 +29,8 @@ package
 		//gameplay display
 		public static var PLAYER_AREA_HEIGHT:Number = 144;
 		public static var MINE_AREA_HEIGHT:Number = RESOLUTION_HEIGHT - PLAYER_AREA_HEIGHT;
+		public static var MINE_TOP:Number = PLAYER_AREA_HEIGHT + ROPE_LENGTH + 44;
+		public static var MINE_LEFT:Number = 23;
 		public static var PLAYER_WIDTH:Number = 114;
 		public static var PLAYER_HEIGHT:Number = 144;
 		public static var PLATFORM_WIDTH:Number = 57;
