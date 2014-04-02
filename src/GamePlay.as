@@ -28,8 +28,8 @@ package
 			playerPosition = _playerPosition;
 			
 			//background
-			playerArea = new ImageDisplay(Config.DISPLAY_PLAYER_BACKGROUND);//default display at (0,0)
-			mineArea = new ImageDisplay(Config.DISPLAY_MINE_BACKGROUND);
+			playerArea = new ImageDisplay(EmbedImage.PLAYER_AREA);//default display at (0,0)
+			mineArea = new ImageDisplay(EmbedImage.MINE_AREA);
 			mineArea.moveTo(0, Config.PLAYER_AREA_HEIGHT);
 			
 			//players
@@ -45,9 +45,11 @@ package
 			stones = _stones;
 			if (stones) 
 			for (var j:int = 0; j < stones.length; j++) {
-				var col:Number = stones[j].position%24;
-				var row:Number = stones[j].position/24;
-				stones[j].moveTo(col * Config.STONE_BOX + Config.MINE_LEFT, row * Config.STONE_BOX + Config.MINE_TOP);
+				var col:int = stones[j].position % 22;
+				var row:int = stones[j].position / 22;
+				
+				stones[j].moveTo(Config.MINE_LEFT + col * Config.STONE_BOX + Config.STONE_BOX / 2.0 - stones[j].width / 2.0, 
+							Config.MINE_TOP + row * Config.STONE_BOX + Config.STONE_BOX / 2.0 - stones[j].width / 2.0);
 			}
 			
 			addEntities();
@@ -84,6 +86,10 @@ package
 				toLaunchInfo.flagID = 241;
 				players[playerPosition].setAction(toLaunchInfo);
 			}
+		}
+		
+		public function getStones():Array {
+			return stones;
 		}
 	}
 

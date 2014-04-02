@@ -37,11 +37,11 @@ package
 			return bonus;
 		}
 		
-		public function getRopes:Array {
+		public function getRopes():Array {
 			return ropes;
 		}
 		
-		public function getTools:Array {
+		public function getTools():Array {
 			return tools;
 		}
 	}

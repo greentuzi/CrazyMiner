@@ -25,6 +25,19 @@ package
 		public static var STONE2_SMALL:uint = 3;
 		public static var STONE2_MIDDLE:uint = 4;
 		public static var STONE2_BIG:uint = 5;
+		public static var STONE_SMALL_WIDTH:Number = 30;
+		public static var STONE_MIDDLE_WIDTH:Number = 40;
+		public static var STONE_BIG_WIDTH:Number = 50;
+		
+		//room
+		public static var ROOM_NAME_X:Number = 50;
+		public static var ROOM_NAME_Y:Number = 50;
+		public static var ROOM_CHARACTER_Y:Number = 80;
+		public static var ROOM_INFO_Y:Number = 500;
+		public static var ROOM_READY_BUTTON_Y:Number = 650;
+		public static var ROOM_CHARACTER_WIDTH:Number = 114;
+		public static var ROOM_INFO_WIDTH:Number = 114;
+		public static var ROOM_READY_BUTTON_WIDTH:Number = 200;
 		
 		//gameplay display
 		public static var PLAYER_AREA_HEIGHT:Number = 144;

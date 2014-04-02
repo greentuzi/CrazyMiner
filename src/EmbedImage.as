@@ -6,8 +6,10 @@ package
 	 */
 	public class EmbedImage 
 	{
-		//buttons
-		[Embed(source = "../embed/readyButton.jpg")] public static var READY_BUTTON:Class;
+		//room
+		[Embed(source = "../embed/roomResource/notReady.png")] public static var READY_BUTTON_UNCLICKED:Class;
+		[Embed(source = "../embed/roomResource/ready.png")] public static var READY_BUTTON_CLICKED:Class;
+		[Embed(source = "../embed/roomResource/roomBackground.png")] public static var ROOM_BACKGROUND:Class;
 		
 		//backgrounds
 		[Embed(source = "../embed/playerArea.png")] public static var PLAYER_AREA:Class;

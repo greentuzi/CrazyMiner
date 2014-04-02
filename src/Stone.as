@@ -17,29 +17,39 @@ package
 		{
 			kind = _kind;
 			position = _position;
-			//trace(kind);
+			
 			switch(kind){
 				case Config.STONE1_SMALL:
 					graphic = new Image(EmbedImage.STONE1_SMALL_IMAGE);
+					width = Config.STONE_SMALL_WIDTH;
 					break;
 				case Config.STONE1_MIDDLE:
 					graphic = new Image(EmbedImage.STONE1_MIDDLE_IMAGE);
+					width = Config.STONE_MIDDLE_WIDTH;
 					break;
 				case Config.STONE1_BIG:
 					graphic = new Image(EmbedImage.STONE1_BIG_IMAGE);
+					width = Config.STONE_BIG_WIDTH;
 					break;
 				case Config.STONE2_SMALL:
 					graphic = new Image(EmbedImage.STONE2_SMALL_IMAGE);
+					width = Config.STONE_SMALL_WIDTH;
 					break;
 				case Config.STONE2_MIDDLE:
 					graphic = new Image(EmbedImage.STONE2_MIDDLE_IMAGE);
+					width = Config.STONE_MIDDLE_WIDTH;
 					break;
 				case Config.STONE2_BIG:
 					graphic = new Image(EmbedImage.STONE2_BIG_IMAGE);
+					width = Config.STONE_BIG_WIDTH;
 					break;
 				default:
 					graphic = Image.createCircle(5, 0x00ff00);
 			}
+		}
+		
+		public function destroy():void {
+			FP.world.remove(this);
 		}
 		
 	}

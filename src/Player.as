@@ -21,8 +21,8 @@ package
 		{
 			score = 0;
 			position = _postion;
-			character = new ImageDisplay(Config.DISPLAY_CHARACTER, _characterType);
-			platform = new ImageDisplay(Config.DISPLAY_PLATFORM, _platformType);
+			character = new ImageDisplay(EmbedImage.CHARACTER_DEFAULT);
+			platform = new ImageDisplay(EmbedImage.PLATFORM_DEFAULT);
 			rope = new Rope(_ropeType);
 			
 			character.moveTo(x + Config.PLAYER_WIDTH / 2.0 - Config.PLAYER_WIDTH / 2.0, y + Config.PLAYER_HEIGHT - Config.PLAYER_HEIGHT);

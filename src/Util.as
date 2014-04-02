@@ -55,7 +55,9 @@ package
 			if (event.data == "") return;
 			trace("onData:"+event.data);
 			var jsonObject:Object = JSON.decode(event.data);
-			
+			//jsonObject.length
+			//for (var i:int = 0;i<json
+			//trace("jsonObject:"+jsonObject);
 			var stone:Stone;
 			switch(jsonObject.flagID)
 			{
@@ -69,7 +71,9 @@ package
 					var players:Array = new Array;
 					for (var j:int = 0; j < 2; j++)
 						players.push(new Player(j));
-					CrazyMiner.createGamePlay(0, players, array);
+						
+					var gamePlay:GamePlay = CrazyMiner.createGamePlay(0, players, array);
+					CrazyMiner.setView(gamePlay);
 					//GamePlay.getInstance().setInstance(0, players, array);
 					//FP.world = GamePlay.getInstance();
 					break;

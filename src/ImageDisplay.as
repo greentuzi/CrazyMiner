@@ -8,6 +8,10 @@ package
 	 */
 	public class ImageDisplay extends Entity
 	{
+		public function ImageDisplay(_imageSource:Class) {
+			graphic = new Image(_imageSource);
+		}
+		/*
 		public function ImageDisplay(_display:uint, _type:uint = 0)
 		{
 			//select your display
@@ -52,6 +56,7 @@ package
 					throw("Bad display category!!!");
 			}
 		}
+		*/
 	}
 
 }
